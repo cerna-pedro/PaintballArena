@@ -8,7 +8,16 @@ namespace PaintballArena
 {
     internal class PaintballGun
     {
-        public const int MAGAZINE_SIZE = 16;
+        public PaintballGun(int balls, int magazineSize, bool loaded)
+        {
+            this.balls = balls;
+            MagazineSize = magazineSize;
+            if (!loaded)
+            {
+                Reload();
+            }
+        }
+        public int MagazineSize { get; private set; } = 16;
 
         private int balls = 0;
         public int BallsLoaded { get; private set; }
@@ -38,9 +47,9 @@ namespace PaintballArena
 
         public void Reload()
         {
-            if (balls > MAGAZINE_SIZE)
+            if (balls > MagazineSize)
             {
-                BallsLoaded = MAGAZINE_SIZE;
+                BallsLoaded = MagazineSize;
             }
             else
             {
@@ -57,5 +66,6 @@ namespace PaintballArena
             balls--;
             return true;
         }
+
     }
 }

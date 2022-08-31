@@ -4,8 +4,13 @@
     {
         static void Main(string[] args)
         {
+            int numberOfBalls = ReadInt(20, "Number of balls");
+            int magazineSize = ReadInt(16, "Magazine size");
 
-            PaintballGun gun = new PaintballGun();
+            Console.Write($"Loaded: [false]: ");
+            bool.TryParse(Console.ReadLine(), out bool isLoaded);
+
+            PaintballGun gun = new PaintballGun(numberOfBalls, magazineSize, isLoaded);
             while (true)
             {
                 Console.WriteLine($"{gun.Balls} balls, {gun.BallsLoaded} loaded");
@@ -25,12 +30,28 @@
                 }
                 else if (key == '+')
                 {
-                    gun.Balls += PaintballGun.MAGAZINE_SIZE;
+                    gun.Balls += gun.MagazineSize;
                 }
                 else if (key == 'q')
                 {
                     return;
                 }
+            }
+
+        }
+        static int ReadInt(int lastUsedValue, string prompt)
+        {
+            Console.Write($"{prompt} [{lastUsedValue}]: ");
+            string line = Console.ReadLine();
+            if (int.TryParse(line, out int value))
+            {
+                Console.WriteLine($"\nusing value: {value}\n");
+                return value;
+            }
+            else
+            {
+                Console.WriteLine($"\nusing default value: {lastUsedValue}\n");
+                return lastUsedValue;
             }
         }
     }
